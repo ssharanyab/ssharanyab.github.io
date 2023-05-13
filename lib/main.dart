@@ -2,6 +2,7 @@ import 'dart:html' as html;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/responsive_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,10 +15,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Sharanya\'s Portfolio',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.green,
+      theme: ThemeData.dark().copyWith(
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: const HomePage(),
     );
@@ -34,36 +35,205 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        actions: [
-          TextButton.icon(
-            onPressed: () => showDialog(
-              context: context,
-              builder: (context) => ContactMeDialog(),
-            ),
-            icon: const Icon(
-              Icons.phone,
-              //  color: Colors.white,
-            ),
-            label: const Text(
-              'Contact Me',
-              // style: TextStyle(color: Colors.white),
+      extendBodyBehindAppBar: true,
+      appBar: PreferredSize(
+        preferredSize: Size(screenSize.width, 1000),
+        child: Container(
+          decoration: const BoxDecoration(
+              // color: Colors.green,
+              ),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Row(
+              children: [
+                Text(
+                  '',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const Spacer(),
+                TextButton.icon(
+                  onPressed: () => showDialog(
+                    context: context,
+                    builder: (context) => ContactMeDialog(),
+                  ),
+                  icon: Icon(
+                    Icons.phone,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                  label: const Text(
+                    'Contact Me',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                TextButton.icon(
+                  onPressed: () {},
+                  icon: Icon(Icons.arrow_circle_down_outlined,
+                      color: Theme.of(context).iconTheme.color),
+                  label: const Text(
+                    'Resume',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          TextButton.icon(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.arrow_circle_down_outlined,
-              //  color: Colors.white,
-            ),
-            label: const Text(
-              'Resume',
-              //style: TextStyle(color: Colors.white),
+        ),
+      ),
+      body: Stack(
+        children: [
+          // The header widget
+          SizedBox(
+            height: screenSize.height * 0.75,
+            width: screenSize.width,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.black,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: ResponsiveWidget.isSmallScreen(context)
+                    ? Column(
+                        children: [
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            height: 250,
+                            width: 250,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.white,
+                                width: 5,
+                              ),
+                              shape: BoxShape.circle,
+                              image: const DecorationImage(
+                                image: AssetImage('assets/images/sharanya.png'),
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          SizedBox(
+                            width: screenSize.width * 0.7,
+                            child: SingleChildScrollView(
+                              physics: const BouncingScrollPhysics(),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: const [
+                                  Text(
+                                    'Hey, I am Sharanya!',
+                                    style: TextStyle(
+                                      fontSize: 32,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  Text(
+                                    'I am an accomplished software developer with a strong focus on mobile engineering. My expertise lies in creating immersive and user-friendly applications for various mobile platforms. I specialize in leveraging AR technologies to deliver captivating gaming experiences that blur the lines between virtual and real worlds. Additionally, I have a knack for architecting robust backend systems using Golang, guaranteeing the smooth and seamless operation of the applications.',
+                                    //style: Theme.of(context).textTheme.titleSmall,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.justify,
+                                    softWrap: true,
+                                    maxLines: 20,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 250,
+                            width: 250,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.white,
+                                width: 5,
+                              ),
+                              shape: BoxShape.circle,
+                              image: const DecorationImage(
+                                image: AssetImage('assets/images/sharanya.png'),
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: screenSize.width * 0.05),
+                          SizedBox(
+                            width: screenSize.width * 0.35,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  'Hey, I am Sharanya!',
+                                  style: TextStyle(
+                                    fontSize: 32,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 16),
+                                Text(
+                                  'I am an accomplished software developer with a strong focus on mobile engineering. My expertise lies in creating immersive and user-friendly applications for various mobile platforms. I specialize in leveraging AR technologies to deliver captivating gaming experiences that blur the lines between virtual and real worlds. Additionally, I have a knack for architecting robust backend systems using Golang, guaranteeing the smooth and seamless operation of the applications.',
+                                  //style: Theme.of(context).textTheme.titleSmall,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    height: 1.5,
+                                  ),
+                                  textAlign: TextAlign.justify,
+                                  softWrap: true,
+                                  maxLines: 10,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+              ),
             ),
           ),
+          // The body widget
+          Center(
+            heightFactor: 1,
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: screenSize.height * 0.70,
+                left: screenSize.width / 5,
+                right: screenSize.width / 5,
+                bottom: screenSize.height * 0.20,
+              ),
+              child: Card(
+                // floating quick access bar
+
+                elevation: 5,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
