@@ -17,9 +17,8 @@ class _HomePageState extends State<HomePage> {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
           TextButton.icon(

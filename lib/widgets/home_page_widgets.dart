@@ -391,11 +391,17 @@ class ContactForm extends StatelessWidget {
             SizedBox(
               width: isSmallScreen
                   ? null
-                  : MediaQuery.of(context).size.width * 0.2,
+                  : MediaQuery.of(context).size.width * 0.1,
               height: MediaQuery.of(context).size.height * 0.05,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: const Text('Send'),
+              child: InkWell(
+                onTap: () {},
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: const Center(child: Text('Send')),
+                ),
               ),
             ),
           ],
